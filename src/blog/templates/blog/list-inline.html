@@ -1,0 +1,41 @@
+<!-- <li><a href='{{ object.get_absolute_url }}'>{{ object.title }}</a></li> -->
+<div class="col-12 col-md-6 mb-5 mx-auto">
+	<div class='card {% if not blog_post.publish_date %} border border-warning text-dark} Draft {% endif %}'>
+		<div class='card-body'>
+			{% if blog_post.image %}
+				<a href="{{ blog_post.get_absolute_url }}">
+					<img src="{{ blog_post.image.url }}" class="card-img-top" />
+				</a>
+			{% endif %}
+			<h5 class='card-title'>{{blog_post.title}}</h5>
+ 			<p class='card-text'>
+ 			<small class='text-muted'>{{ blog_post.publish_date }}</small>
+			{% if truncate %}
+				{{ blog_post.content|linebreaks|truncatewords:30}}
+			{% else %}
+				{{ blog_post.content|linebreaks }}
+			{% endif %}	
+ 			</p>
+
+			{% if not detail %}
+				{% if not blog_post.publish_date %} Draft {% endif %}
+				<a class="btn btn-outline-primary" href="{{ blog_post.get_absolute_url }}" role="button">
+					View
+				</a>
+			{% endif %}
+			{% if not truncate %}
+				{% if not blog_post.publish_date %}
+				<a class="btn btn-outline-primary" href="{{ blog_post.get_published_url }}" role="button">
+					Publish Now
+				</a>
+				{% endif %}
+			{% if request.user.is_authenticated %}
+				{% if request.user.is_staff %}
+					<a class="btn btn-outline-info" href='{{ object.get_edit_url }}' role="button">Edit</a>
+					<a class="btn btn-outline-danger" href='{{ object.get_delete_url }}' role="button">Delete</a>
+				{% endif %}
+			{% endif %} 
+			{% endif %}
+		</div>
+	</div> 
+</div>

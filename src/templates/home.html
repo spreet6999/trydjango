@@ -1,0 +1,17 @@
+{% extends "base.html" %} 
+
+<title>{% block title %}
+Home Page
+{% endblock %}</title>
+
+{% block content %}
+<!-- {{ user }} -->
+<!-- these variables are called django's context variables -->
+<!-- {{ user.is_authenticated }} -->
+
+{% if user.is_authenticated %}
+	{% for a in blog_list %}
+	{% include 'blog/list-inline.html' with blog_post=a truncate=True detail=False%}
+	{% endfor %}
+{% endif %}
+{% endblock %}

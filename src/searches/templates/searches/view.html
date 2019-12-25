@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+	{% if query %}
+	<div class="row">
+		<div class="col-12 col-8 mx-auto">
+			<p class="lead">You Searched for {{query}}</p>
+		</div>
+	</div>
+	{% else %}
+		{{ blog_post.get_absolute_url }}
+	{% endif %}
+
+	{% for blog_item in blog_list %}
+		{% include 'blog/list-inline.html' with blog_post=blog_item truncate=True detail=False%}
+	{% endfor %}
+{% endblock %}
